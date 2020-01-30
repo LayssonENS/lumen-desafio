@@ -4,6 +4,7 @@
 -   Lumen 6.2.0
 -   Composer
 -   Postman
+-   XAMPP
 
 # Como instalar
 
