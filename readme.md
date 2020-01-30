@@ -13,16 +13,16 @@
 
 # Rotas
 
-Rota 1: [GET] .../cnpj/{cnpj}
-http://localhost/lumen-desafio/public/cnpj/04748181000947
-● Objetivo: Consultar e retornar os dados de uma empresa através de um CNPJ informado.
-● Entrada: Receber um número de CNPJ através da sua rota
+**Rota 1: [GET] .../cnpj/{cnpj}**
+- http://localhost/lumen-desafio/public/cnpj/04748181000947
+- Objetivo: Consultar e retornar os dados de uma empresa através de um CNPJ informado.
+- Entrada: Receber um número de CNPJ através da sua rota
 
-Rota 2: [POST] .../quote
-http://localhost/lumen-desafio/public/quote
-● Objetivo: Criar uma rota para receber dados de entrada e realizar uma cotação fictícia
+**Rota 2: [POST] .../quote**
+- http://localhost/lumen-desafio/public/quote
+- Objetivo: Criar uma rota para receber dados de entrada e realizar uma cotação fictícia
 com a API da Frete Rápido (os valores e transportadoras retornadas não são reais);
-● Entrada: Receber um JSON com os dados de volumes e destinatário, conforme exemplo
+- Entrada: Receber um JSON com os dados de volumes e destinatário, conforme exemplo
 abaixo:
 
 ```
