@@ -1,11 +1,11 @@
-# Tecnologias Utilizadas\*\*
+# Tecnologias Utilizadas
 
 -   PHP 7.4.2
 -   Lumen 6.2.0
 -   Composer
 -   Postman
 
-# Como instalar\*\*
+# Como instalar
 
 -   Baixar/Clonar repositório
 -   Executar o comando:
@@ -27,32 +27,32 @@ abaixo:
 
 ```
 {
-"destinatario": {
-"endereco": {
-"cep": "01311000"
-}
-},
-"volumes": [
-{
-"tipo": 7,
-"quantidade": 1,
-"peso": 5,
-"valor": 349,
-"sku": "abc-teste-123",
-"altura": 0.2,
-"largura": 0.2,
-"comprimento": 0.2
-},
-{
-"tipo": 7,
-"quantidade": 2,
-"peso": 4,
-"valor": 556,
-"sku": "abc-teste-527",
-"altura": 0.4,
-"largura": 0.6,
-"comprimento": 0.15
-}
-]
+    "destinatario": {
+        "endereco": {
+        "cep": "01311000"
+        }
+    },
+    "volumes": [
+    {
+        "tipo": 7,
+        "quantidade": 1,
+        "peso": 5,
+        "valor": 349,
+        "sku": "abc-teste-123",
+        "altura": 0.2,
+        "largura": 0.2,
+        "comprimento": 0.2
+        },
+        {
+        "tipo": 7,
+        "quantidade": 2,
+        "peso": 4,
+        "valor": 556,
+        "sku": "abc-teste-527",
+        "altura": 0.4,
+        "largura": 0.6,
+        "comprimento": 0.15
+    }
+    ]
 }
 ```
