@@ -9,7 +9,7 @@
 
 -   Baixar/Clonar repositório
 -   Executar o comando:
-    -   composer dump-autoload.
+    -   composer install --optimize-autoloader.
 
 # Rotas
 
