@@ -24,6 +24,8 @@ http://localhost/lumen-desafio/public/quote
 com a API da Frete Rápido (os valores e transportadoras retornadas não são reais);
 ● Entrada: Receber um JSON com os dados de volumes e destinatário, conforme exemplo
 abaixo:
+
+```
 {
 "destinatario": {
 "endereco": {
@@ -53,3 +55,4 @@ abaixo:
 }
 ]
 }
+```
