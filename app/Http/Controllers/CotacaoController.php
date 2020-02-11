@@ -4,13 +4,15 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use GuzzleHttp\Client;
+use App\CotacaoValidation;
+use Illuminate\Validation\ValidationException;
 
 class CotacaoController extends Controller
 {  
     
     protected $cotacao;
     
-    /* Instanciado no construct, o Client do Guzzle para facilitar o envio de POST e GET */
+    /* Instanciando no construct, o Client do Guzzle para facilitar o envio de POST e GET */
     public function __construct()
     {
         $this->cotacao = new Client();
@@ -18,6 +20,11 @@ class CotacaoController extends Controller
     
     public function CotacaoFrete(Request $data )
     {   
+  
+        $this->validate($data, 
+            CotacaoValidation::RULE_COTACAO    
+        );
+
         /* Recebendo dados enviados via post para montar JSON  */
         $json =[
             'remetente' => [
