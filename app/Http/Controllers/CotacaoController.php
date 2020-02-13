@@ -10,12 +10,12 @@ use App\CotacaoValidation;
 class CotacaoController extends Controller
 {  
     
-    protected $cotacaoFrete;
+    protected $cotacao;
     
     /* Instanciando no construct, o Client do Guzzle para facilitar o envio de POST e GET */
     public function __construct()
     {
-        $this->cotacaoFrete = new Client();
+        $this->cotacao = new Client();
     }
     
     public function CotacaoFrete(Request $data )
@@ -37,7 +37,7 @@ class CotacaoController extends Controller
             'codigo_plataforma' => '588604ab3'
         ];
         try{
-            $result =$this->cotacaoFrete->post('https://freterapido.com/api/external/embarcador/v1/quote-simulator',
+            $result =$this->cotacao->post('https://freterapido.com/api/external/embarcador/v1/quote-simulator',
             array('json' => $json));
             
             $resultado = json_decode($result->getBody()->getContents());
@@ -48,20 +48,20 @@ class CotacaoController extends Controller
             $cotacoes = array();
             foreach($resultado->transportadoras as $cotacao){
         
-                $transportadoras = array( "nome" => $cotacao->nome,
+                $transportadoras  = array( "nome" => $cotacao->nome,
                                     "servico" => $cotacao->servico,
                                     "prazo_entrega" => $cotacao->prazo_entrega,
                                     "preco_frete" => $cotacao->preco_frete
                 );
                 
-                /* Pega dados do array transportadoras e adiciona no array cotacoes */
-                array_push( $cotacoes, $transportadoras);
+                /* Pega dados do array transportadoras  e adiciona no array cotacoes */
+                array_push( $cotacoes, $transportadoras );
             }
         
             /* Montando array com as cotações  */
-            $transportadorasCotacoes = array("transportadoras" => $cotacoes );
+            $transportadorasCotacoes  = array("transportadoras" => $cotacoes );
 
-            return response($transportadoras, 200)->header('Content-Type', 'application/json');
+            return response($transportadorasCotacoes , 200)->header('Content-Type', 'application/json');
             
         }catch(QueryException $exception) {
             return response()->json([
