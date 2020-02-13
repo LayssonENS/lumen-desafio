@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use GuzzleHttp\Client;
 use App\CotacaoValidation;
-use Illuminate\Validation\ValidationException;
+
 
 class CotacaoController extends Controller
 {  
@@ -20,7 +20,8 @@ class CotacaoController extends Controller
     
     public function CotacaoFrete(Request $data )
     {   
-  
+        
+        /* Valida se os dados recebidos são válidos */
         $this->validate($data, 
             CotacaoValidation::RULE_COTACAO    
         );
