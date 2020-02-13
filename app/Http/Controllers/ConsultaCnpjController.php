@@ -17,43 +17,60 @@ class ConsultaCnpjController extends Controller
 
     public function ConsultarCnpj($cnpj)
     {   
-        /* Valida tamanho do CNPJ e se contém apenas números */
-        if ((strlen($cnpj) != 14) or (!is_numeric($cnpj)))
-        return([[ 'status' => 'CNPJ invalido'], 'ERRO', 400]);
         
-        /* Realiza consulta de cnpj na API: https://www.receitaws.com.br/v1/cnpj/  */
-        $result =$this->empresa->get('https://www.receitaws.com.br/v1/cnpj/' . $cnpj);
-        $resultado = json_decode($result->getBody()->getContents());
+        /* Valida se Cnpj é válido e retorna caso não for*/
+        $validadorCnpj = \Validator::make(
+            ['cnpj' => $cnpj],
+            ['cnpj' => 'required|cnpj']
+        );
+    
+        if ($validadorCnpj->fails())
+        {
+            return response()->json([
+                'erro' => 'O valor do CNPJ não é válido'
+            ], 422);
+        }      
 
-        /* Monta Json para retorno personalizado */
-        $json = [
-            'empresa' => [
-                'cnpj' => $resultado->cnpj,
-                'ultima_atualizacao' => $resultado->ultima_atualizacao,
-                'abertura' => $resultado->abertura,
-                'nome' =>  $resultado->nome,
-                'fantasia' =>  $resultado->fantasia,
-                'status' => $resultado->status,
-                'tipo' => $resultado->tipo,
-                'situacao' => $resultado->situacao,
-                'capital_social' => $resultado->capital_social,
-                'endereco' => [
-                    'bairro' => $resultado->bairro,
-                    'logradouro' => $resultado->logradouro,
-                    'numero' => $resultado->numero,
-                    'cep' => $resultado->cep,
-                    'municipio' => $resultado->municipio,
-                    'uf' => $resultado->uf,
-                    'complemento' => $resultado->complemento
-                ],
-                'contato' => [
-                    'telefone' => $resultado->telefone,
-                    'email' => $resultado->email
-                ],
-                'atividade_principal' => $resultado->atividade_principal   
-                
-            ]
-        ];
-        return response($json, 200)->header('Content-Type', 'application/json');
+        try{
+            /* Realiza consulta de cnpj na API: https://www.receitaws.com.br/v1/cnpj/  */
+            $result =$this->empresa->get('https://www.receitaws.com.br/v1/cnpj/' . $cnpj);
+            $resultado = json_decode($result->getBody()->getContents());
+
+            /* Monta Json para retorno personalizado */
+            $json = [
+                'empresa' => [
+                    'cnpj' => $resultado->cnpj,
+                    'ultima_atualizacao' => $resultado->ultima_atualizacao,
+                    'abertura' => $resultado->abertura,
+                    'nome' =>  $resultado->nome,
+                    'fantasia' =>  $resultado->fantasia,
+                    'status' => $resultado->status,
+                    'tipo' => $resultado->tipo,
+                    'situacao' => $resultado->situacao,
+                    'capital_social' => $resultado->capital_social,
+                    'endereco' => [
+                        'bairro' => $resultado->bairro,
+                        'logradouro' => $resultado->logradouro,
+                        'numero' => $resultado->numero,
+                        'cep' => $resultado->cep,
+                        'municipio' => $resultado->municipio,
+                        'uf' => $resultado->uf,
+                        'complemento' => $resultado->complemento
+                    ],
+                    'contato' => [
+                        'telefone' => $resultado->telefone,
+                        'email' => $resultado->email
+                    ],
+                    'atividade_principal' => $resultado->atividade_principal   
+                    
+                ]
+            ];
+            return response($json, 200)->header('Content-Type', 'application/json');
+
+        }catch(QueryException $exception) {
+            return response()->json([
+                'erro' => 'Erro ao tentar executar a consulta'
+            ], 500);
+        }
     }
 }
