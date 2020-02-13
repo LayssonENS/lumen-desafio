@@ -36,8 +36,8 @@ class ConsultaCnpjController extends Controller
             $result =$this->empresa->get('https://www.receitaws.com.br/v1/cnpj/' . $cnpj);
             $resultado = json_decode($result->getBody()->getContents());
 
-            /* Monta Json para retorno personalizado */
-            $json = [
+           /* Retorna dados de acordo como pedido no desafio*/
+            return response()->json([
                 'empresa' => [
                     'cnpj' => $resultado->cnpj,
                     'ultima_atualizacao' => $resultado->ultima_atualizacao,
@@ -61,11 +61,9 @@ class ConsultaCnpjController extends Controller
                         'telefone' => $resultado->telefone,
                         'email' => $resultado->email
                     ],
-                    'atividade_principal' => $resultado->atividade_principal   
-                    
+                    'atividade_principal' => $resultado->atividade_principal     
                 ]
-            ];
-            return response($json, 200)->header('Content-Type', 'application/json');
+            ], 200);
 
         }catch(QueryException $exception) {
             return response()->json([
