@@ -9,7 +9,7 @@ class ConsultaCnpjController extends Controller
 {
     protected $empresa;
 
-    /* Instanciado no construct, o Client do Guzzle para facilitar o envio de POST e GET */
+    /* Instanciando no construct, o Client do Guzzle para facilitar o envio de POST e GET */
     public function __construct()
     {
         $this->empresa = new Client();
@@ -34,34 +34,34 @@ class ConsultaCnpjController extends Controller
         try{
             /* Realiza consulta de cnpj na API: https://www.receitaws.com.br/v1/cnpj/  */
             $result =$this->empresa->get('https://www.receitaws.com.br/v1/cnpj/' . $cnpj);
-            $resultado = json_decode($result->getBody()->getContents());
+            $resultadoConsulta = json_decode($result->getBody()->getContents());
 
-           /* Retorna dados de acordo como pedido no desafio*/
+           /* Retorna dados personalizados*/
             return response()->json([
                 'empresa' => [
-                    'cnpj' => $resultado->cnpj,
-                    'ultima_atualizacao' => $resultado->ultima_atualizacao,
-                    'abertura' => $resultado->abertura,
-                    'nome' =>  $resultado->nome,
-                    'fantasia' =>  $resultado->fantasia,
-                    'status' => $resultado->status,
-                    'tipo' => $resultado->tipo,
-                    'situacao' => $resultado->situacao,
-                    'capital_social' => $resultado->capital_social,
+                    'cnpj' => $resultadoConsulta->cnpj,
+                    'ultima_atualizacao' => $resultadoConsulta->ultima_atualizacao,
+                    'abertura' => $resultadoConsulta->abertura,
+                    'nome' =>  $resultadoConsulta->nome,
+                    'fantasia' =>  $resultadoConsulta->fantasia,
+                    'status' => $resultadoConsulta->status,
+                    'tipo' => $resultadoConsulta->tipo,
+                    'situacao' => $resultadoConsulta->situacao,
+                    'capital_social' => $resultadoConsulta->capital_social,
                     'endereco' => [
-                        'bairro' => $resultado->bairro,
-                        'logradouro' => $resultado->logradouro,
-                        'numero' => $resultado->numero,
-                        'cep' => $resultado->cep,
-                        'municipio' => $resultado->municipio,
-                        'uf' => $resultado->uf,
-                        'complemento' => $resultado->complemento
+                        'bairro' => $resultadoConsulta->bairro,
+                        'logradouro' => $resultadoConsulta->logradouro,
+                        'numero' => $resultadoConsulta->numero,
+                        'cep' => $resultadoConsulta->cep,
+                        'municipio' => $resultadoConsulta->municipio,
+                        'uf' => $resultadoConsulta->uf,
+                        'complemento' => $resultadoConsulta->complemento
                     ],
                     'contato' => [
-                        'telefone' => $resultado->telefone,
-                        'email' => $resultado->email
+                        'telefone' => $resultadoConsulta->telefone,
+                        'email' => $resultadoConsulta->email
                     ],
-                    'atividade_principal' => $resultado->atividade_principal     
+                    'atividade_principal' => $resultadoConsulta->atividade_principal     
                 ]
             ], 200);
 
